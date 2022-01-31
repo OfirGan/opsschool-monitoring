@@ -77,23 +77,33 @@ resource "aws_instance" "monitor" {
 
   user_data = local.install-monitor-server
 
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = tls_private_key.server_key.private_key_pem
-    host        = self.public_ip
-  }
+  # connection {
+  #   type        = "ssh"
+  #   user        = "ubuntu"
+  #   private_key = tls_private_key.server_key.private_key_pem
+  #   host        = self.public_ip
+  # }
 
-  provisioner "file" {
-    source      = "folders_to_move"
-    destination = "/home/ubuntu/opsschool"
-  }
+  # provisioner "file" {
+  #   source      = "folders_to_move"
+  #   destination = "/home/ubuntu/opsschool"
+  # }
 
   # provisioner "remote-exec" {
   #   inline = [
-  #     "",
-  #     "",
-  #     ""
+  #     "cd /home/ubuntu/opsschool/instrument/",
+  #     "docker-compose build",
+  #     "docker-compose up -d"
+  #   ]
+  # }
+
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "cd /home/ubuntu/opsschool/compose",
+  #     "docker-compose up -d",
+  #     "cd /home/ubuntu/opsschool/instrument/",
+  #     "docker-compose build",
+  #     "docker-compose up -d"
   #   ]
   # }
 

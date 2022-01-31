@@ -3,7 +3,7 @@
 * run commands:
 ```
 cd /home/ubuntu/opsschool/compose/
-docker-compose up -d  
+docker-compose up -d
 ```
     
 * This will spin up 2 containers, one with prometheus and one with grafana.

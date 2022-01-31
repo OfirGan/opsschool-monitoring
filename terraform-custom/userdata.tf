@@ -5,9 +5,6 @@ locals {
 #
 # Install Docker
 #
-mkdir -p /home/ubuntu/opsschool
-sudo chown -R ubuntu:ubuntu /home/ubuntu/opsschool
-
 sudo apt-get update -y
 sudo apt install docker.io -y
 sudo apt install docker-compose -y
@@ -21,7 +18,7 @@ sudo chmod 666 /var/run/docker.sock
 # node_exporter is set up as a systemd service, which requiers a daemon-reload.
 # BLAME: DamDam (Adam Bihari)
 
-node_exporter_ver="0.18.0"
+node_exporter_ver="1.3.1"
 
 wget \
   https://github.com/prometheus/node_exporter/releases/download/v$node_exporter_ver/node_exporter-$node_exporter_ver.linux-amd64.tar.gz \
@@ -66,6 +63,19 @@ sudo systemctl start node_exporter
 systemctl status --no-pager node_exporter
 
 sudo systemctl enable node_exporter
+
+cd /home/ubuntu/
+git clone https://github.com/OfirGan/opsschool-monitoring.git
+sudo chown -R ubuntu:ubuntu /home/ubuntu/opsschool-monitoring
+
+# Task 0
+cd /home/ubuntu/opsschool-monitoring/terraform-custom/compose
+docker-compose up -d
+
+# Task 1
+cd /home/ubuntu/opsschool-monitoring/terraform-custom/instrument/
+docker-compose build
+docker-compose up -d
 
 END_TEXT
 }
